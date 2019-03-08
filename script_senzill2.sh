@@ -47,7 +47,7 @@ ejercicio5 () {
 }
 
 #ejercicio6 () {
-    #printf "%*s%s" 10 > espais
+    #printf "%*s%s" 10 > espais.txt
 #}
 
 ejercicio5
