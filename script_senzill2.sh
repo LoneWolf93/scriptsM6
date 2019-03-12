@@ -34,14 +34,14 @@ ejercicio4 () {
 }
 
 ejercicio5 () {
-    local text="Hola que tal estas"
+    text="Hola que tal estas"
 
     echo "Escribe la palabra para buscarla en el fichero"
     read word
-    echo "Escribe la palabra para aniadirla en el fichero"
-    read word2
+    #echo "Escribe la palabra para aniadirla en el fichero"
+    #read word2
 
-    #`sed -i "/$word/a $text" prueba`
+    `sed -i "/$word/a $text" prueba`
 
     #echo $text
 }
@@ -50,6 +50,45 @@ ejercicio5 () {
     #printf "%*s%s" 10 > espais.txt
 #}
 
-ejercicio5
+showMenu () {
+    echo "Indica el tipus de configuracio"
+    echo "  [1] Estatica"
+    echo "  [2] DHCP"
+    echo "  [3] Sortir"
+    read option
+}
 
-# hola hola
+ejercicio7 () {
+    showMenu
+
+    case $option in
+            1)
+                    echo "Introduce el nombre de la interficie de red"
+                    read IFACE
+                    echo "Introduce la IP"
+                    read IP
+                    echo "Introduce la puerta de enlace"
+                    read GW
+                    echo "Introduce el DNS separado por comas"
+                    read DNS
+                    ;;
+            2)
+                    echo "Quieres poner el dhcp?"
+                    ;;
+            3)
+                    echo "Bye!"
+                    exit
+                    ;;
+esac
+
+globales=""
+globales+="$IFACE:\n"
+globales+="addresses: [$IP]\n"
+globales+="gateway4: $GW\n"
+globales+="nameservers:\n"
+globales+="addresses: [$DNS]"
+echo -e $globales < 01-netcfg.yaml
+}
+
+ejercicio7
+
