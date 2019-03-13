@@ -59,35 +59,43 @@ showMenu () {
 }
 
 ejercicio7 () {
+
+    flag=true
+    globales=""
+
+    while $flag; do
+
     showMenu
 
     case $option in
             1)
-                    echo "Introduce el nombre de la interficie de red"
-                    read IFACE
-                    echo "Introduce la IP"
-                    read IP
-                    echo "Introduce la puerta de enlace"
-                    read GW
-                    echo "Introduce el DNS separado por comas"
-                    read DNS
-                    ;;
+                read -p "Introduce el nombre de la interficie de red: " IFACE
+                read -p "Introduce la IP: " IP
+                read -p "Introduce la puerta de enlace: " GW
+                read -p "Introduce el DNS separado por comas: " DNS
+                globales+="$IFACE:\n"
+                globales+="addresses: [$IP]\n"
+                globales+="gateway4: $GW\n"
+                globales+="nameservers:\n"
+                globales+="addresses: [$DNS]"
+                echo -e $globales
+                ;;
             2)
-                    echo "Quieres poner el dhcp?"
-                    ;;
+                echo "Quieres poner el dhcp?"
+                ;;
             3)
-                    echo "Bye!"
-                    exit
-                    ;;
+                echo "Bye!"
+                flag=false
+                ;;
+            *)
+                echo -e "\e[31mError, esta opcion no existe\e[0m"
+# End of case
 esac
+# End of loop
+done
 
-globales=""
-globales+="$IFACE:\n"
-globales+="addresses: [$IP]\n"
-globales+="gateway4: $GW\n"
-globales+="nameservers:\n"
-globales+="addresses: [$DNS]"
-echo -e $globales < 01-netcfg.yaml
+space_inet=`grep "enp3s0:" 01-netcfg.yaml|grep -ob '[a-zA-Z]'|head -n 1|cut -d : -f1`
+#`sed -i "/ethernets:/a $globales" 01-netcfg.yaml`
 }
 
 ejercicio7
