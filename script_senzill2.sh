@@ -8,6 +8,14 @@
 #5. Repeteix el punt anterior però ara el text està desat en una variable.
 #6. Genera una cadena amb un número determinat d'espais en blanc a l'inici, per exemple 4 
 
+ejercicio1 () {
+    `grep -m 1 "hola" file`
+}
+
+ejercicio2 () {
+    `grep -n -m 1 "hola" file`
+}
+
 
 ejercicio3 () {
 
@@ -59,29 +67,44 @@ showMenu () {
 }
 
 ejercicio7 () {
-
+    # Cogemos el numero de espacios de la primera letra en el apartado Interfaces
+    space_inet=`grep "enp3s0:" 01-netcfg.yaml|grep -ob '[a-zA-Z]'|head -n 1|cut -d : -f1`
+    space_dhcp=`grep "dhcp4:" 01-netcfg.yaml|grep -ob '[a-zA-Z]'|head -n 1|cut -d : -f1`
     flag=true
     globales=""
+    space=`printf "%*s%s" $(($space_inet - 1))`
+    space2=`printf "%*s%s" $space_dhcp`
+    sumaspaces=$(($space_inet + $space_dhcp))
+    space3=`printf "%*s%s" $sumaspaces`
 
     while $flag; do
 
+    # Invoke method showMenu
     showMenu
 
     case $option in
             1)
                 read -p "Introduce el nombre de la interficie de red: " IFACE
                 read -p "Introduce la IP: " IP
+                read -p "Introduce el dhcp true/false: " DHCP
                 read -p "Introduce la puerta de enlace: " GW
                 read -p "Introduce el DNS separado por comas: " DNS
-                globales+="$IFACE:\n"
-                globales+="addresses: [$IP]\n"
-                globales+="gateway4: $GW\n"
-                globales+="nameservers:\n"
-                globales+="addresses: [$DNS]"
-                echo -e $globales
+                globales+="$space$IFACE:\n"
+                globales+="$space2""addresses: [$IP]\n"
+                globales+="$space2""dhcp4: $DHCP\n"
+                globales+="$space2""gateway4: $GW\n"
+                globales+="$space2""nameservers:\n"
+                globales+="$space3""addresses: [$DNS]"
+
+                `sed -i '/ethernets:/a\ '"$globales"'' 01-netcfg.yaml`
+                #echo -e "$globales"
                 ;;
             2)
-                echo "Quieres poner el dhcp?"
+                read -p "Introduce el nombre de la interficie de red: " IFACE
+                read -p "Quieres poner el dhcp?" DHCP
+                globales+="$space$IFACE:\n"
+                globales+="$space2""dhcp4: $DHCP"
+                `sed -i '/ethernets:/a\ '"$globales"'' 01-netcfg.yaml`
                 ;;
             3)
                 echo "Bye!"
@@ -89,13 +112,11 @@ ejercicio7 () {
                 ;;
             *)
                 echo -e "\e[31mError, esta opcion no existe\e[0m"
+                ;;
 # End of case
 esac
 # End of loop
 done
-
-space_inet=`grep "enp3s0:" 01-netcfg.yaml|grep -ob '[a-zA-Z]'|head -n 1|cut -d : -f1`
-#`sed -i "/ethernets:/a $globales" 01-netcfg.yaml`
 }
 
 ejercicio7
