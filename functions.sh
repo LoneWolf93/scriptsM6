@@ -2,17 +2,58 @@
 
 # Funcion menu
 
-function showMenuRunning () {
-    echo -e "Estado actual: $1"
-    echo "[Stop] Parar servicio"
-    echo "[Exit] Salir del programa"
-    read -p "Que desea hacer con el servicio $2?" option
+function showMenuStopped () {
+    echo -e "\nEstado actual: \e[48;5;9m$1\e[0m"
+    echo -e "\n[\e[38;5;76m  Start  \e[39m] Iniciar servicio"
+    echo -e "[\e[38;5;247m  Exit   \e[39m] Salir del programa\n"
+    read -p "Que desea hacer con el servicio $2? " option
+    
+    case $option in
+        start)
+            `systemctl start $2`
+            ;;
+        exit)
+            echo "Bye!"
+            flag=false
+            ;;
+        *)
+            echo -e "\e[91mError, opcion desconocida\e[39m"
+            ;;
+    esac
+
 }
 
-function showMenuStopped () {
-    echo -e "Estado actual: $1"
-    echo "[Start] Iniciar servicio"
-    echo "[Reboot] Reiniciar servicio"
-    echo "[Stop] Parar servicio"
-    echo "[Exit] Salir del programa"
+function showMenuRunning () {
+    echo -e "\nEstado actual: \e[48;5;34m$1\e[0m"
+    #echo -e "[\e[38;5;76m  Start  \e[39m] Iniciar servicio"
+    echo -e "\n[\e[38;5;208m  Reboot \e[39m] Reiniciar servicio"
+    echo -e "[\e[91m  Stop   \e[39m] Parar servicio"
+    echo -e "[\e[38;5;247m  Exit   \e[39m] Salir del programa\n"
+    read -p "Que desea hacer con el servicio $2? " option
+
+    case $option in
+        [R-r]eboot)
+            echo "Reiniciando $2..."
+            sleep 1
+            `systemctl restart $2`
+            ;;
+        [S-s]top)
+            echo "Parando $2..."
+            sleep 1
+            `systemctl stop $2`
+            ;;
+        [E-e]xit)
+            echo "Bye!"
+            flag=false
+            ;;
+        *)
+            echo -e "\e[91mError, opcion desconocida\e[39m"
+            ;;
+    esac
+}
+
+
+function prueba () {
+    service_name=""
+    read -p "Introduce el nombre del servicio: " service_name
 }
