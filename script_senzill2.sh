@@ -76,13 +76,10 @@ ejercicio7 () {
     # Inicialización de la variable para concatenar los resultados
     globales=""
     # Variable que contiene el comando printf y así mostrar los espacios de la interficie
-    space=`printf "%*s%s" $(($space_inet - 1))`
+    space=`printf "%*s%s" $space_inet`
     # Variable que contiene el comando printf y asi mostrar los espacios del parámetro dhcp4
     space2=`printf "%*s%s" $space_dhcp`
-    # Suma de los dos variable $space_dhcp mas dos espacios adicionales
-    sumaspaces=$(($space_dhcp + 2))
-    # Mostramos los espacios de la suma de la variable sumaspaces
-    space3=`printf "%*s%s" $sumaspaces`
+
 
     # Mientras $flag sea True entro en el bucle
     while $flag; do
@@ -107,9 +104,9 @@ ejercicio7 () {
                 globales+="$space2""dhcp4: $DHCP\n"
                 globales+="$space2""gateway4: $GW\n"
                 globales+="$space2""nameservers:\n"
-                globales+="$space3""addresses: [$DNS]"
+                globales+="$space$space""addresses: [$DNS]"
                 # Comando para insertar toda la variable concatenada a un fichero
-                `sed -i '/ethernets:/a\ '"$globales"'' 01-netcfg.yaml`
+                `sed -i '/ethernets:/a\'"$globales"'' 01-netcfg.yaml`
                 ;;
             2)
                 # En cada opcion volvemos a poner la variable vacía para prevenir el concatenado de la
