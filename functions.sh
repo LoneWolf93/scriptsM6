@@ -15,6 +15,7 @@ function showMenuStopped () {
         exit)
             echo "Bye!"
             flag=false
+            exit
             ;;
         *)
             echo -e "\e[91mError, opcion desconocida\e[39m"
@@ -45,15 +46,10 @@ function showMenuRunning () {
         [E-e]xit)
             echo "Bye!"
             flag=false
+            exit
             ;;
         *)
-            echo -e "\e[91mError, opcion desconocida\e[39m"
+            echo -e "\e[91mOpciones validas {Reboot | Stop}\e[39m"
             ;;
     esac
-}
-
-
-function prueba () {
-    service_name=""
-    read -p "Introduce el nombre del servicio: " service_name
 }
