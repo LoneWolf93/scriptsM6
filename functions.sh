@@ -9,10 +9,10 @@ function showMenuStopped () {
     read -p "Que desea hacer con el servicio $2? " option
     
     case $option in
-        start)
+        [Ss]tart)
             `systemctl start $2`
             ;;
-        exit)
+        [Ee]xit)
             echo "Bye!"
             flag=false
             exit
@@ -33,17 +33,17 @@ function showMenuRunning () {
     read -p "Que desea hacer con el servicio $2? " option
 
     case $option in
-        [R-r]eboot)
+        [Rr]eboot)
             echo "Reiniciando $2..."
             sleep 1
             `systemctl restart $2`
             ;;
-        [S-s]top)
+        [Ss]top)
             echo "Parando $2..."
             sleep 1
             `systemctl stop $2`
             ;;
-        [E-e]xit)
+        [Ee]xit)
             echo "Bye!"
             flag=false
             exit
