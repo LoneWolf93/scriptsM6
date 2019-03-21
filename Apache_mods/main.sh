@@ -8,7 +8,7 @@ function menu () {
 }
 
 #mods_enabled=`ls /etc/apache2/mods-enabled/ | grep ".load" | cut -d "." -f1`
-mods_available=`ls /etc/apache2/mods-available/ | grep "*.load" | cut -d "." -f1`
+mods_available=`ls /etc/apache2/mods-available/ | grep ".load"`
 
 i=1
 for files in $mods_available; do
