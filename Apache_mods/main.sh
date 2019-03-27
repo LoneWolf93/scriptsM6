@@ -14,7 +14,7 @@ function menu () {
 function list_mods () {
     local i=0
     for file in $mods_available; do
-        local existe=`ls /etc/apache2/mods-enabled|grep ".load"|grep $file `
+        local existe=$(ls /etc/apache2/mods-enabled|grep ".load"|grep $file)
         
         if [ -z $existe ]; then
             echo -e "Linea $i: \e[91m$file\e[39m" #>> disabled.txt
@@ -95,4 +95,4 @@ function deactivate_MOD () {
     fi
 }
 
-loop_menu
+loop_menu #>> disabled.txt
