@@ -44,15 +44,11 @@ function menu_sites () {
 }
 
 function create_site () {
-    local name_site
+    #name_site
     local file_exists=false
-    local IP
-    local foo
+    
     read -p "Como se llamara el fichero? " name_site
-    
-    #Crea un fichero en blanco
-    
-    $(cd /etc/apache2/sites-available/)
+
     #Recorre todo el directorio sites-available para comprobar si existe o no el fichero
     #que introducimos.
     for file in `ls /etc/apache2/sites-available/`; do
@@ -70,10 +66,35 @@ function create_site () {
     else
         echo "El fichero no existe, El fichero $name_site ha sido creado"
         $(sudo touch /etc/apache2/sites-available/$name_site.conf)
+        set_parameters
     fi
+}
 
+function modify_site () {
+    echo "Function de modificar"
+    source modify_directives.sh
+    modify_menu
+}
+
+function go_Back () {
+    cd ..
+    source main.sh
+}
+
+#Parametros del fichero
+function set_parameters () {
+    local IP
+    local PORT
+    local DOCUMENTROOT
+    local ERRORLOG
+    local CUSTOMLOG
+    local AUTHTYPE
+    local AUTHUSERFILE
+    local REQUIRE
+    local foo
+    local tabs
     #Creacion de los parametros que contiene dicho fichero creado anteriormente
-
+    
     read -p "Que direccion IP? " IP
     read -p "Que puerto? " PORT
     read -p "Que serverAdmin? " EMAIL
@@ -83,33 +104,27 @@ function create_site () {
     read -p "Que auth type? " AUTHTYPE
     read -p "Que auth user file? " AUTHUSERFILE
     read -p "Que require? " REQUIRE
+    
+    #Crea ocho espacios
+    tabs=`printf "%*s%s" 8`
 
     foo+="<VirtualHost $IP:$PORT>\n"
-    foo+="ServerAdmin $EMAIL\n"
-    #foo+= "DocumentRoot $DOCUMENTROOT "
-    #foo+="\n"
-    #foo+="ErrorLog $ERRORLOG"
-    #foo+="\n"
-    #foo+="CustomLog $CUSTOMLOG"
-    #foo+="\n"
-    #foo+="Directory $DOCUMENTROOT"
-    #foo+="\n"
-    #foo+="AuthType $AUTHTYPE\n"
-    #foo+="AuthUserFile $AUTHUSERFILE"
-    #foo+="\n"
-    #foo+="Require $REQUIRE\n"
-    #foo+="</Directory>\n"
-    #foo+="</Virtualhost>"
-#sudo su
-    echo -e "$foo" >> "/etc/apache2/sites-available/$name_site.conf"
-
-}
-
-function modify_site () {
-    echo "Function de modificar"
-}
-
-function go_Back () {
-    cd ..
-    source main.sh
+    foo+=$tabs"ServerAdmin $EMAIL\n"
+    foo+=$tabs"DocumentRoot $DOCUMENTROOT\n"
+    foo+=$tabs"ErrorLog $ERRORLOG\n"
+    foo+=$tabs"CustomLog $CUSTOMLOG\n"
+    foo+=$tabs"<Directory $DOCUMENTROOT>\n"
+    foo+=$tabs$tabs"AuthType $AUTHTYPE\n"
+    foo+=$tabs$tabs"AuthUserFile $AUTHUSERFILE\n"
+    foo+=$tabs$tabs"Require $REQUIRE\n"
+    foo+=$tabs"</Directory>\n"
+    foo+="</Virtualhost>"
+    
+    #Guardamos todo el contenido de la variable a un fichero
+    echo -e "$foo" >> "$name_site.conf"
+    #Movemos el fichero que creamos hacia la carpeta de sites-available
+    sudo mv -v $name_site".conf" /etc/apache2/sites-available/$name_site".conf"
+    
+    #echo -e "$foo" >> "/etc/apache2/sites-available/$name_site.conf"
+    #echo -e "$foo" >> "$name_site.conf"
 }
