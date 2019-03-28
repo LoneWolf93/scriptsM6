@@ -2,8 +2,9 @@ source functions_directives.sh
 
 function modify_menu () {
     local option_modify
-    echo "Listado de ficheros"
-    ls /etc/apache2/sites-available
+    #echo "Listado de ficheros"
+    #ls /etc/apache2/sites-available
+    #echo "Current site [$mod_file_site]"
     echo "Add directive"
     echo "Modify directive"
     echo "Delete directive"
@@ -12,9 +13,13 @@ function modify_menu () {
     
     case $option_modify in
         [Aa]dd)
+            clear
+            mostrar_fichero
             add_directive
         ;;
         [Mm]od)
+            clear
+            mostrar_fichero
             modify_directive
         ;;
         [Dd]elete)
@@ -30,26 +35,35 @@ function modify_menu () {
     esac
 }
 
-function add_directive () {
-    local mod_file_site
+function mostrar_fichero () {
+    ###
     local file_exists=false
     read -p "Que fichero quieres modificar? " mod_file_site
-
+    
     for file in `ls /etc/apache2/sites-available/`; do
-        if [ "$file" = "$mod_file_site.conf" ]; then
+        if [ "$file" = "$mod_file_site.conf" ] || [ "$mod_file_site" = "" ]; then
             file_exists=true
         else
             file_exists=false
         fi
-        
     done
     
     if [ $file_exists = "true" ]; then
-        cat -n /etc/apache2/sites-available/$mod_file_site".conf"
-    else
-        echo "nose"
+        echo "Indica el sitio para modifcarlo [$mod_file_site]"
+        if [ ! -z "$mod_file_site" ]; then
+            current_site=$mod_file_site
+        fi
     fi
+}
 
+function add_directive () {
+        cat -n /etc/apache2/sites-available/$mod_file_site".conf"
+        read -p "Que parametro deseas añadir? " add_param
+        sudo sed -i 2'a '"$tabs$add_param" /etc/apache2/sites-available/$mod_file_site".conf"
+}
+
+function modify_directive () {
+    echo "modifcando la direciva"
 }
 
 while $flag; do
