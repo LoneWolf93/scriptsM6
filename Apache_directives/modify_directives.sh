@@ -38,12 +38,12 @@ function modify_menu () {
 function mostrar_fichero () {
     ###
     local file_exists=false
-    current_site=""
+    #current_site=""
     read -p "Que fichero quieres modificar? " mod_file_site
     
     for file in `ls /etc/apache2/sites-available/`; do
 
-        if [ "$mod_file_site" = "" ]; then
+        if [ "$mod_file_site" = "$current_site" ]; then
             file_exists=true
         fi
 
@@ -71,7 +71,7 @@ function add_directive () {
 }
 
 function modify_directive () {
-    cat -n /etc/apache2/sites-available/$mod_file_site".conf"
+    cat -n /etc/apache2/sites-available/$current_site.conf
 }
 
 while $flag; do
