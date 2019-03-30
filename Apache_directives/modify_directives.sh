@@ -23,6 +23,8 @@ function modify_menu () {
             modify_directive
         ;;
         [Dd]elete)
+            clear
+            mostrar_fichero
             delete_directive
         ;;
         [Bb]ack)
@@ -42,12 +44,12 @@ function mostrar_fichero () {
     read -p "Que fichero quieres modificar? " mod_file_site
     
     for file in `ls /etc/apache2/sites-available/`; do
-
+        
         if [ "$mod_file_site" = "$current_site" ]; then
             file_exists=true
         fi
-
-
+        
+        
         if [ "$file" = "$mod_file_site.conf" ]; then
             file_exists=true
         fi
@@ -58,20 +60,28 @@ function mostrar_fichero () {
         if [ ! -z "$mod_file_site" ]; then
             current_site=$mod_file_site
             echo "Current site --> [$current_site]"
-            else
+        else
             current_site=$mod_file_site
+            
         fi
     fi
 }
 
 function add_directive () {
-        cat -n /etc/apache2/sites-available/$mod_file_site".conf"
-        read -p "Que parametro deseas añadir? " add_param
-        sudo sed -i 2'a '"$tabs$add_param" /etc/apache2/sites-available/$mod_file_site".conf"
+    cat -n /etc/apache2/sites-available/$mod_file_site".conf"
+    read -p "Que parametro deseas añadir? " add_param
+    sudo sed -i 2'a '"$tabs$add_param" /etc/apache2/sites-available/$mod_file_site".conf"
 }
 
 function modify_directive () {
     cat -n /etc/apache2/sites-available/$current_site.conf
+}
+
+function delete_directive () {
+    cat -n /etc/apache2/sites-available/$current_site.conf
+    read -p "Que directiva deseas eliminar? " directive_line
+
+    sed -i "/$directive_line/d" /etc/apache2/sites-available/$current_site.conf # No funciona
 }
 
 while $flag; do
