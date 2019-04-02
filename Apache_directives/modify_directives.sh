@@ -75,13 +75,14 @@ function add_directive () {
 
 function modify_directive () {
     cat -n /etc/apache2/sites-available/$current_site.conf
+    
 }
 
 function delete_directive () {
     cat -n /etc/apache2/sites-available/$current_site.conf
     read -p "Que directiva deseas eliminar? " directive_line
 
-    sed -i "/$directive_line/d" /etc/apache2/sites-available/$current_site.conf # No funciona
+    sudo sed -i $directive_line'd ' /etc/apache2/sites-available/$current_site.conf
 }
 
 while $flag; do

@@ -52,10 +52,9 @@ function create_site () {
     #Recorre todo el directorio sites-available para comprobar si existe o no el fichero
     #que introducimos.
     for file in `ls /etc/apache2/sites-available/`; do
-        if [ "$file" = "$name_site.conf" ]; then
+        if [ "$name_site.conf" = "$file" ]; then
             file_exists=true
-        else
-            file_exists=false
+
         fi
         
     done
