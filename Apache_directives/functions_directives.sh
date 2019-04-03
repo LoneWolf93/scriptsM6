@@ -35,7 +35,7 @@ function menu_sites () {
         ;;
         S)
             #Llamo a la funcion de ir hacia atras
-            flag=false
+            flag_sites=false
         ;;
         *)
             #Cualquier opcion diferente hace un output de mensaje de error
@@ -55,9 +55,7 @@ function create_site () {
     for file in `ls /etc/apache2/sites-available/`; do
         if [ "$name_site.conf" = "$file" ]; then
             file_exists=true
-
         fi
-        
     done
     #Si el fichero existe no hace nada,
     #Si el fichero NO existe lo crea.

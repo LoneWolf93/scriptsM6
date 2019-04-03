@@ -1,7 +1,8 @@
 #! /bin/bash
+
 function modify_menu () {
-    flag_menu=false
-    local option_modify
+    flag_menu=true
+    #local option_modify
     #echo "Listado de ficheros"
     #ls /etc/apache2/sites-available
     echo -e "Current site $inverted[$current_site]$white"
@@ -26,10 +27,13 @@ function modify_menu () {
             clear
             mostrar_fichero
             delete_directive
+            while [ "$flag_menu" = "true" ]; do
+   modify_menu
+done
         ;;
         S)
             echo "atras"
-            flag=false
+            flag_menu=false
         ;;
         *)
             echo "Opcion invalida"
@@ -99,6 +103,6 @@ function delete_directive () {
     
 }
 
-while [ "$flag_menu" = "true" ]; do
-   modify_menu
-done
+#while [ "$flag_menu" = "true" ]; do
+#   modify_menu
+#done
