@@ -105,8 +105,8 @@ function set_parameters () {
     read -p "Que require? " REQUIRE
     
     #Crea ocho espacios
-    tabs=`printf "%*s%s" 8`
-
+    #tabs=`printf "%*s%s" 8`
+    tabs="\t"
     foo+="<VirtualHost $IP:$PORT>\n"
     foo+=$tabs"ServerAdmin $EMAIL\n"
     foo+=$tabs"DocumentRoot $DOCUMENTROOT\n"

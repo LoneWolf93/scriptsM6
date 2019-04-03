@@ -61,7 +61,6 @@ function mostrar_fichero () {
             echo -e $bold"Current site -->$white $inverted[$current_site]$white"
         else
             current_site=$mod_file_site
-            
         fi
     fi
 }
@@ -75,8 +74,14 @@ function add_directive () {
 }
 
 function modify_directive () {
+    local set_line
     cat -n /etc/apache2/sites-available/$current_site.conf
-    
+    read -p "Que numero de linea quieres modificar? " set_line
+    #read -p "text antiguo " old_text
+    read -p "text nuevo: " new_text
+    hola=`sudo sed '1q;d' /etc/apache2/sites-available/loli.conf | cut -d " " -f2`
+    `sudo sed -i $set_line's;'$hola';'$new_text';' "/etc/apache2/sites-available/$current_site.conf"`
+echo $hola
 }
 
 function delete_directive () {

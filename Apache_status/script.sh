@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #Importamos el archivo .sh de las funciones
-#source functions.sh
-function administrar_server () {
+source ./Apache_status/functions.sh
 flag=true
 # Condicion de si el servicio existe en el sistema
 while [ "$flag" = "true" ]; do
@@ -17,4 +16,3 @@ while [ "$flag" = "true" ]; do
         showMenuStopped $current_status "apache2"
     fi
 done
-}

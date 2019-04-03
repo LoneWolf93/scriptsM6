@@ -1,6 +1,6 @@
 #! /bin/bash
-source Apache_status/script.sh
-source Apache_status/functions.sh
+#source ./Apache_status/script.sh
+#source Apache_status/functions.sh
 #source Apache_directives/functions_directives.sh
 # Menu principal
 flag=true
@@ -14,7 +14,7 @@ function menu () {
     case $option in
         1)
             clear
-            administrar_server
+            ./Apache_status/script.sh
         ;;
         2)
             clear
