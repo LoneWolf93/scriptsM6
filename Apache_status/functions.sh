@@ -10,14 +10,16 @@ function showMenuStopped () {
     
     case $option in
         [Ss]tart)
+            clear
             `systemctl start $2`
             ;;
         [Ee]xit)
             echo "Bye!"
             flag=false
-            exit
+            #exit
             ;;
         *)
+            clear
             echo -e "\e[91mError, opcion desconocida\e[39m"
             ;;
     esac
@@ -35,20 +37,24 @@ function showMenuRunning () {
     case $option in
         [Rr]eboot)
             echo "Reiniciando $2..."
-            sleep 1
-            `systemctl restart $2`
+            sleep 2
+            clear
+            #`systemctl restart $2`
+            `sudo service $2 restart`
             ;;
         [Ss]top)
             echo "Parando $2..."
-            sleep 1
+            sleep 2
+            clear
             `systemctl stop $2`
             ;;
         [Ee]xit)
             echo "Bye!"
             flag=false
-            exit
+            #exit
             ;;
         *)
+            clear
             echo -e "\e[91mOpciones validas {Reboot | Stop}\e[39m"
             ;;
     esac
