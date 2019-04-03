@@ -1,40 +1,41 @@
+#! /bin/bash
+source ./Apache_directives/modify_directives.sh
 # Menu sites
 function menu_sites () {
-    
     local option_site
     
-    echo "Create site"
-    echo "Modify site"
-    echo "Delete site"
-    echo "Enable site"
-    echo "Disable site"
-    echo "backward"
+    echo "[1] Create site"
+    echo "[2] Modify site"
+    echo "[3] Delete site"
+    echo "[4] Enable site"
+    echo "[5] Disable site"
+    echo "[S] Exit"
     read -p "Escriba una opcion " option_site
     
     case $option_site in
-        [Cc]reate)
+        1)
             #Llamo a la funcion de crear sitio
             create_site
         ;;
-        [Mm]odify)
+        2)
             #Llamo a la funcion de modificar
-            modify_site
+            modify_menu
         ;;
-        [Dd]elete)
+        3)
             #Llamo a la funcion de eliminar sitio
             delete_site
         ;;
-        [Ee]nable)
+        4)
             #Llamo a la funcion de habilitar sitio
             enable_site
         ;;
-        [Dd]isable)
+        5)
             #Llamo a la funcion de deshabilitar sitio
             disable_site
         ;;
-        [Bb])
+        S)
             #Llamo a la funcion de ir hacia atras
-            go_Back
+            flag=false
         ;;
         *)
             #Cualquier opcion diferente hace un output de mensaje de error
@@ -71,7 +72,7 @@ function create_site () {
 
 function modify_site () {
     echo "Function de modificar"
-    source modify_directives.sh
+    #source ./Apache_directives/modify_directives.sh
     modify_menu
 }
 

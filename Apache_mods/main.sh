@@ -45,7 +45,7 @@ function choose_option () {
             flag=false
         ;;
         *)
-            echo "La opcion $option es desconocida"
+            echo -e "La opcion"$bold $option $white"es desconocida"
         ;;
     esac
 }

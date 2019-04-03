@@ -1,12 +1,9 @@
 #! /bin/bash
-source functions_directives.sh
+source ./Apache_directives/functions_directives.sh
 
-flag=true
+flag_sites=true
 
-while $flag; do
-menu_sites
-
-
+while [ "$flag_sites" = "true" ]; do
+    menu_sites
 done
-        
-    
+

@@ -1,33 +1,33 @@
-source functions_directives.sh
-source ../config.sh
+#! /bin/bash
 function modify_menu () {
+    flag_menu=false
     local option_modify
     #echo "Listado de ficheros"
     #ls /etc/apache2/sites-available
     echo -e "Current site $inverted[$current_site]$white"
-    echo "Add directive"
-    echo "Modify directive"
-    echo "Delete directive"
-    echo "Back"
+    echo "[1] Add directive"
+    echo "[2] Modify directive"
+    echo "[3] Delete directive"
+    echo "[S] Exit"
     read -p "Que opcion desea? " option_modify
     
     case $option_modify in
-        [Aa]dd)
+        1)
             clear
             mostrar_fichero
             add_directive
         ;;
-        [Mm]od)
+        2)
             clear
             mostrar_fichero
             modify_directive
         ;;
-        [Dd]elete)
+        3)
             clear
             mostrar_fichero
             delete_directive
         ;;
-        [Bb]ack)
+        S)
             echo "atras"
             flag=false
         ;;
@@ -59,8 +59,8 @@ function mostrar_fichero () {
         if [ ! -z "$mod_file_site" ]; then
             current_site=$mod_file_site
             echo -e $bold"Current site -->$white $inverted[$current_site]$white"
-        else
-            current_site=$mod_file_site
+        #else
+         #   current_site=$mod_file_site
         fi
     fi
 }
@@ -79,7 +79,7 @@ function modify_directive () {
     read -p "Que numero de linea quieres modificar? " set_line
     #read -p "text antiguo " old_text
     read -p "text nuevo: " new_text
-    hola=`sudo sed '1q;d' /etc/apache2/sites-available/loli.conf | cut -d " " -f2`
+    hola=`sudo sed $set_line'q;d' /etc/apache2/sites-available/$current_site.conf | cut -d " " -f2`
     `sudo sed -i $set_line's;'$hola';'$new_text';' "/etc/apache2/sites-available/$current_site.conf"`
 echo $hola
 }
@@ -99,6 +99,6 @@ function delete_directive () {
     
 }
 
-while $flag; do
-    modify_menu
+while [ "$flag_menu" = "true" ]; do
+   modify_menu
 done
