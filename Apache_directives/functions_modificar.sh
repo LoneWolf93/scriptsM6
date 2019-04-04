@@ -1,46 +1,6 @@
 #! /bin/bash
 
-function modify_menu () {
-    flag_menu=true
-    #local option_modify
-    #echo "Listado de ficheros"
-    #ls /etc/apache2/sites-available
-    echo -e "Current site $inverted[$current_site]$white"
-    echo "[1] Add directive"
-    echo "[2] Modify directive"
-    echo "[3] Delete directive"
-    echo "[S] Exit"
-    read -p "Que opcion desea? " option_modify
-    
-    case $option_modify in
-        1)
-            clear
-            mostrar_fichero
-            add_directive
-        ;;
-        2)
-            clear
-            mostrar_fichero
-            modify_directive
-        ;;
-        3)
-            clear
-            mostrar_fichero
-            delete_directive
-            while [ "$flag_menu" = "true" ]; do
-   modify_menu
-done
-        ;;
-        S)
-            echo "atras"
-            flag_menu=false
-        ;;
-        *)
-            echo "Opcion invalida"
-        ;;
-    esac
-}
-
+# Muestra el fichero que estamos modificando
 function mostrar_fichero () {
     ###
     local file_exists=false
@@ -63,20 +23,31 @@ function mostrar_fichero () {
         if [ ! -z "$mod_file_site" ]; then
             current_site=$mod_file_site
             echo -e $bold"Current site -->$white $inverted[$current_site]$white"
-        #else
-         #   current_site=$mod_file_site
+            #else
+            #   current_site=$mod_file_site
         fi
     fi
 }
 
+# Funcion que añade una directiva pasa por el usuario por consola
 function add_directive () {
     cat -n /etc/apache2/sites-available/$current_site".conf"
-    
-    read -p "Que parametro deseas añadir? " add_param
     read -p "En que linea deseas añadirlo? " set_line
-    sudo sed -i $set_line'a '"$tabs$add_param" /etc/apache2/sites-available/$current_site".conf"
+    read -p "Que parametro deseas añadir? " add_param
+    read -p "Cuantas tabulaciones quieres? " tab
+
+    if [ "$tab" = "1" ]; then
+    tab="\t"
+    #`sudo sed -i $set_line'a '"$add_param" /etc/apache2/sites-available/$current_site".conf"`
+    sudo sed -i $set_line'i;'$tab';'$add_param /etc/apache2/sites-available/$current_site.conf
+    else
+    tab='\t'
+    sudo sed -i $set_line'i'';'$tab$tab';'$add_param /etc/apache2/sites-available/$current_site.conf
+    fi
 }
 
+# Funcion que modifica una directiva introduciendo el numero de linea y escribiendo la
+# nueva directiva.
 function modify_directive () {
     local set_line
     cat -n /etc/apache2/sites-available/$current_site.conf
@@ -85,24 +56,27 @@ function modify_directive () {
     read -p "text nuevo: " new_text
     hola=`sudo sed $set_line'q;d' /etc/apache2/sites-available/$current_site.conf | cut -d " " -f2`
     `sudo sed -i $set_line's;'$hola';'$new_text';' "/etc/apache2/sites-available/$current_site.conf"`
-echo $hola
+    echo $hola
 }
 
+# Funcion para eliminar una directiva especifica pasando por consola el numero de linea
+# de dicha directiva.
 function delete_directive () {
     cat -n /etc/apache2/sites-available/$current_site.conf
     read -p "Que directiva deseas eliminar? " directive_line
 
-    
-    
     if [ ! -z $directive_line ]; then
         sudo sed -i $directive_line'd ' /etc/apache2/sites-available/$current_site.conf
-        else
+    else
         echo "Error no ha introducido nada!!!"
     fi
-    
-    
 }
 
-#while [ "$flag_menu" = "true" ]; do
-#   modify_menu
-#done
+# Funcion para modificar el sitio
+function modify_site () {
+    echo "Function de modificar"
+    #source ./Apache_directives/modify_directives.sh
+    modify_menu
+}
+
+

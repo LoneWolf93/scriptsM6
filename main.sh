@@ -26,11 +26,12 @@ function menu () {
         ;;
         3)
             clear
-            bash Apache_directives/directives.sh
+            bash Apache_directives/adm_sites.sh
         ;;
         S)
             flag=false
             echo "Bye!"
+            clear
         ;;
         *)
             echo -e "Opción $option incorrecta"
