@@ -1,4 +1,5 @@
 #! /bin/bash
+set -e
 #source ./Apache_status/script.sh
 #source Apache_status/functions.sh
 #source Apache_directives/functions_directives.sh
@@ -9,12 +10,12 @@ function menu () {
     local option
     echo -e "###########################"
     echo -e "####### $bold Main menu  $white#######"
-    echo -e "$bold###########################$white"
+    echo -e "###########################"
     echo "# [1] Administrar server  #"
     echo "# [2] Administrar modulos #"
     echo "# [3] Administrar sites   #"
     echo "# [S] Salir del programa  #"
-    echo -e "$bold###########################$white"
+    echo -e "###########################"
     read -p "Que opcion deseas? " option
     case $option in
         1)
