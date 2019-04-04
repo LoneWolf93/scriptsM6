@@ -34,15 +34,14 @@ function add_directive () {
     cat -n /etc/apache2/sites-available/$current_site".conf"
     read -p "En que linea deseas añadirlo? " set_line
     read -p "Que parametro deseas añadir? " add_param
+    echo $add_param---
     read -p "Cuantas tabulaciones quieres? " tab
 
     if [ "$tab" = "1" ]; then
-    tab="\t"
-    #`sudo sed -i $set_line'a '"$add_param" /etc/apache2/sites-available/$current_site".conf"`
-    sudo sed -i $set_line'i;'$tab';'$add_param /etc/apache2/sites-available/$current_site.conf
-    else
     tab='\t'
-    sudo sed -i $set_line'i'';'$tab$tab';'$add_param /etc/apache2/sites-available/$current_site.conf
+    #`sudo sed -i $set_line'a '"$add_param" /etc/apache2/sites-available/$current_site".conf"`
+    sudo sed -i $set_line'a'$add_param /etc/apache2/sites-available/$current_site.conf
+    sudo sed -i $(($set_line+1))'s/^/'$tab'/' /etc/apache2/sites-available/$current_site.conf
     fi
 }
 

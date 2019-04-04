@@ -17,7 +17,7 @@ function modify_menu () {
     
     case $option_modify in
         1)
-            clear
+           # clear
             mostrar_fichero
             add_directive
             loop_menu
