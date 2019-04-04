@@ -7,6 +7,7 @@ source ./config.sh
 flag=true
 function menu () {
     local option
+    echo -e "###########################"
     echo -e "####### $bold Main menu  $white#######"
     echo -e "$bold###########################$white"
     echo "# [1] Administrar server  #"
@@ -28,13 +29,18 @@ function menu () {
             clear
             bash Apache_directives/adm_sites.sh
         ;;
+        4)
+            clear
+            menu_conf
+        ;;
         S)
             flag=false
             echo "Bye!"
             clear
         ;;
         *)
-            echo -e "Opción $option incorrecta"
+            clear
+            echo -e $color_error"Opción $option incorrecta"$white
         ;;
     esac
 }
