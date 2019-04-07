@@ -1,4 +1,5 @@
 #! /bin/bash
+
 function menu_conf () {
 read -p "Ruta servicio apache: " ruta
 read -p "Color para los errores: " color_error
