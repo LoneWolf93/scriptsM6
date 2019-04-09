@@ -1,7 +1,7 @@
 #! /bin/bash
 
-mods_enabled=`ls /etc/apache2/mods-enabled/|grep ".load"|cut -d "." -f1  2>/dev/null`
-mods_available=`ls /etc/apache2/mods-available/|grep ".load"|cut -d "." -f1  2>/dev/null`
+mods_enabled=`ls $ruta/mods-enabled/|grep ".load"|cut -d "." -f1  2>/dev/null`
+mods_available=`ls $ruta/mods-available/|grep ".load"|cut -d "." -f1  2>/dev/null`
 
 function activate_MOD () {
     local mod

@@ -1,10 +1,8 @@
 #! /bin/bash
 set -e
-#source ./Apache_status/script.sh
-#source Apache_status/functions.sh
-#source Apache_directives/functions_directives.sh
+
 # Menu principal
-source ./config.sh
+source ./vars.sh
 flag=true
 function menu () {
     local option
@@ -14,6 +12,7 @@ function menu () {
     echo "# [1] Administrar server  #"
     echo "# [2] Administrar modulos #"
     echo "# [3] Administrar sites   #"
+    echo "# [4] Configuracion       #"
     echo "# [S] Salir del programa  #"
     echo -e "###########################"
     read -p "Que opcion deseas? " option
@@ -32,7 +31,7 @@ function menu () {
         ;;
         4)
             clear
-            menu_conf
+            menu_configuration
         ;;
         S)
             flag=false
@@ -41,7 +40,7 @@ function menu () {
         ;;
         *)
             clear
-            echo -e $color_error"Opción $option incorrecta"$white
+            echo -e $err_color"Opción $option incorrecta"$white
         ;;
     esac
 }
