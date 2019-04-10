@@ -7,7 +7,7 @@ function modify_menu () {
     flag_menu=true
     #local option_modify
     #echo "Listado de ficheros"
-    #ls /etc/apache2/sites-available
+    #ls $ruta/sites-available
     echo -e "Current site $inverted[$current_site]$white"
     echo "[1] Add directive"
     echo "[2] Modify directive"

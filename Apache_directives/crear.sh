@@ -9,7 +9,7 @@ function create_site () {
 
     #Recorre todo el directorio sites-available para comprobar si existe o no el fichero
     #que introducimos.
-    for file in `ls /etc/apache2/sites-available/`; do
+    for file in `ls $ruta/sites-available/`; do
         if [ "$name_site.conf" = "$file" ]; then
             file_exists=true
         fi
@@ -20,7 +20,7 @@ function create_site () {
         echo "El fichero $name_site existe!"
     else
         echo "El fichero no existe, El fichero $name_site ha sido creado"
-        $(sudo touch /etc/apache2/sites-available/$name_site.conf)
+        $(sudo touch $ruta/sites-available/$name_site.conf)
         set_parameters
     fi
 }
@@ -67,9 +67,9 @@ function set_parameters () {
     #Guardamos todo el contenido de la variable a un fichero
     echo -e "$foo" >> "$name_site.conf"
     #Movemos el fichero que creamos hacia la carpeta de sites-available
-    sudo mv -v $name_site".conf" /etc/apache2/sites-available/$name_site".conf"
+    sudo mv -v $name_site".conf" $ruta/sites-available/$name_site".conf"
     
-    #echo -e "$foo" >> "/etc/apache2/sites-available/$name_site.conf"
+    #echo -e "$foo" >> "$ruta/sites-available/$name_site.conf"
     #echo -e "$foo" >> "$name_site.conf"
 }
 
@@ -80,7 +80,7 @@ function delete_site () {
 
     #Recorre todo el directorio sites-available para comprobar si existe o no el fichero
     #que introducimos.
-    for file in `ls /etc/apache2/sites-available/`; do
+    for file in `ls $ruta/sites-available/`; do
         if [ "$site_to_delete.conf" = "$file" ]; then
             file_exists=true
         fi
@@ -94,5 +94,5 @@ function delete_site () {
 }
 
 function list_site () {
-    sudo ls -l /etc/apache2/sites-available/
+    sudo ls -l $ruta/sites-available/
 }

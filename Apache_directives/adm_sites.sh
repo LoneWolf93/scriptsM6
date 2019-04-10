@@ -65,14 +65,14 @@ function enable_site () {
     local file_exists=false
     read -p "Que fichero de configuracion quieres habilitar? " site_to_enable
     
-    for file in `ls /etc/apache2/sites-available/`; do
+    for file in `ls $ruta/sites-available/`; do
         if [ "$site_to_enable.conf" = "$file" ]; then
             file_exists=true
         fi
     done
     
     if [ "$file_exists" = "true" ]; then
-        cd /etc/apache2/sites-available/
+        cd $ruta/sites-available/
         `sudo a2ensite "$site_to_enable"`
         `sudo systemctl reload apache2`
         echo -e "Sitio habilitado correctamente!"
@@ -84,7 +84,7 @@ function disable_site () {
     local file_exists=false
     read -p "Que fichero de configuracion quieres deshabilitar? " site_to_disable
     
-    for file in `ls /etc/apache2/sites-available/`; do
+    for file in `ls $ruta/sites-available/`; do
         if [ "$site_to_disable.conf" = "$file" ]; then
             file_exists=true
         fi
