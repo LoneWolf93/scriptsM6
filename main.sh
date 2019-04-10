@@ -1,5 +1,5 @@
 #! /bin/bash
-source err.sh
+#source err.sh
 # Menu principal
 source ./vars.sh
 flag=true

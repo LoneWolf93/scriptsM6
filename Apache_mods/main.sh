@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./error.sh
+
 source ./Apache_mods/functions_mods.sh
 
 function menu () {
@@ -16,14 +18,17 @@ function menu () {
     case $option in
         1)
             list_mods
+            echo "Modulos listados correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         2)
             echo "Activar MOD"
             activate_MOD
+            echo "Modulo activado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         3)
             echo "Desactivar MOD"
             deactivate_MOD
+            echo "Modulo desactivado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         [Ss])
             echo "Bye!"

@@ -30,12 +30,12 @@ function menu_configuration () {
         ;;
         3)
             clear
-            ruta="/etc/apache2"
+            ruta="/etc/apache2/"
             echo -e "Ruta cambiada a $ruta"
         ;;
         4)
             clear
-            ruta="/etc/httpd"
+            ruta="/etc/httpd/"
             echo -e "Ruta cambiada a $ruta"
         ;;
         S)

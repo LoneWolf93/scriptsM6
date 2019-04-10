@@ -46,6 +46,8 @@ function add_directive () {
     sudo sed -i $set_line'a'$add_param /etc/apache2/sites-available/$current_site.conf
     sudo sed -i $(($set_line+1))'s/^/'$tab$tab'/' /etc/apache2/sites-available/$current_site.conf
     fi
+
+    echo "Directiva $add_param creada correctamente $(date +%d/%m/%Y %H:%M:%S)" >> actividad.log
 }
 
 # Funcion que modifica una directiva introduciendo el numero de linea y escribiendo la
@@ -56,9 +58,9 @@ function modify_directive () {
     read -p "Que numero de linea quieres modificar? " set_line
     #read -p "text antiguo " old_text
     read -p "text nuevo: " new_text
-    hola=`sudo sed $set_line'q;d' /etc/apache2/sites-available/$current_site.conf | cut -d " " -f2`
-    `sudo sed -i $set_line's;'$hola';'$new_text';' "/etc/apache2/sites-available/$current_site.conf"`
-    echo $hola
+    old=`sudo sed $set_line'q;d' /etc/apache2/sites-available/$current_site.conf | cut -d " " -f2`
+    `sudo sed -i $set_line's;'$old';'$new_text';' "/etc/apache2/sites-available/$current_site.conf"`
+    echo "Directiva $old modificada correctamente $(date +%d/%m/%Y %H:%M:%S)" >> actividad.log
 }
 
 # Funcion para eliminar una directiva especifica pasando por consola el numero de linea
@@ -72,6 +74,7 @@ function delete_directive () {
     else
         echo "Error no ha introducido nada!!!"
     fi
+    echo "Directiva $directive_line eliminada correctamente $(date +%d/%m/%Y %H:%M:%S)" >> actividad.log
 }
 
 # Funcion para modificar el sitio

@@ -1,4 +1,5 @@
 #! /bin/bash
+source ./error.sh
 source ./Apache_directives/modificar.sh
 source ./Apache_directives/crear.sh
 # Menu sites
@@ -20,6 +21,7 @@ function menu_sites () {
         1)
             #Llamo a la funcion de crear sitio
             create_site
+            echo "Sitio creado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         2)
             #Llamo a la funcion de modificar
@@ -28,14 +30,17 @@ function menu_sites () {
         3)
             #Llamo a la funcion de eliminar sitio
             delete_site
+            echo "Sitio eliminador correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         4)
             #Llamo a la funcion de habilitar sitio
             enable_site
+            echo "Sitio habilitado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         5)
             #Llamo a la funcion de deshabilitar sitio
             disable_site
+            echo "Sitio deshabilitado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
         S)
             clear
