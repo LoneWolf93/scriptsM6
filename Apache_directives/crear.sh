@@ -72,3 +72,27 @@ function set_parameters () {
     #echo -e "$foo" >> "/etc/apache2/sites-available/$name_site.conf"
     #echo -e "$foo" >> "$name_site.conf"
 }
+
+function delete_site () {
+    local file_exists=false
+    
+    read -p "Como se llama el fichero? " site_to_delete
+
+    #Recorre todo el directorio sites-available para comprobar si existe o no el fichero
+    #que introducimos.
+    for file in `ls /etc/apache2/sites-available/`; do
+        if [ "$site_to_delete.conf" = "$file" ]; then
+            file_exists=true
+        fi
+    done
+
+    if [ "$file_exists" = "true" ]; then
+        `sudo rm $ruta/sites-available/$site_to_delete.conf`
+    fi
+
+    echo "Site eliminado correctamente! $(date +%d/%m/%Y %H:%M:%S)"
+}
+
+function list_site () {
+    sudo ls -l /etc/apache2/sites-available/
+}

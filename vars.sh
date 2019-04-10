@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Variables por defecto pre cargadas
-export ruta="/etc/apache2/"
+export ruta="/etc/apache2"
 export err_color="\e[31m"
 export white="\e[39m"
 
@@ -30,12 +30,12 @@ function menu_configuration () {
         ;;
         3)
             clear
-            ruta="/etc/apache2/"
+            ruta="/etc/apache2"
             echo -e "Ruta cambiada a $ruta"
         ;;
         4)
             clear
-            ruta="/etc/httpd/"
+            ruta="/etc/httpd"
             echo -e "Ruta cambiada a $ruta"
         ;;
         S)

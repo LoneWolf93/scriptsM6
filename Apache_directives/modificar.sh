@@ -35,7 +35,6 @@ function modify_menu () {
             loop_menu
         ;;
         S)
-            echo "atras"
             flag_menu=false
         ;;
         *)

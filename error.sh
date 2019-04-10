@@ -12,7 +12,5 @@ function error () {
 
     echo "el dia $fecha a las $hora hubo un error en la linea $2 en el script $1 en la funcion $3" >> error.log
 
-    return 5
-
 }
 trap 'error ${BASH_SOURCE[0]} $LINENO ${FUNCNAME[0]}' ERR

@@ -13,6 +13,7 @@ function menu_sites () {
     echo -e "# [3] Delete site   #"
     echo -e "# [4] Enable site   #"
     echo -e "# [5] Disable site  #"
+    echo -e "# [6] List site     #"
     echo -e "# [S] Exit          #"
     echo -e "#####################"
     read -p "Escriba una opcion " option_site
@@ -42,6 +43,11 @@ function menu_sites () {
             disable_site
             echo "Sitio deshabilitado correctamente $(date +%d/%m/%Y)" >> actividad.log
         ;;
+        6)
+        clear
+            list_site
+            echo "Sitios listados correctamente $(date +%d/%m/%Y)" >> actividad.log
+        ;;
         S)
             clear
             flag_sites=false
@@ -67,9 +73,28 @@ function enable_site () {
     
     if [ "$file_exists" = "true" ]; then
         cd /etc/apache2/sites-available/
-       `sudo a2ensite "$site_to_enable"`
+        `sudo a2ensite "$site_to_enable"`
         `sudo systemctl reload apache2`
         echo -e "Sitio habilitado correctamente!"
+    fi
+}
+
+function disable_site () {
+    local site_to_disable
+    local file_exists=false
+    read -p "Que fichero de configuracion quieres deshabilitar? " site_to_disable
+    
+    for file in `ls /etc/apache2/sites-available/`; do
+        if [ "$site_to_disable.conf" = "$file" ]; then
+            file_exists=true
+        fi
+    done
+    
+    if [ "$file_exists" = "true" ]; then
+        cd $ruta/sites-available/
+        `sudo a2dissite "$site_to_disable"`
+        `sudo systemctl reload apache2`
+        echo -e "Sitio deshabilitado correctamente!"
     fi
 }
 
