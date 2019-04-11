@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Funcion menu
+# Funcion menu para cuando el servicio apache esta parado
 
 function showMenuStopped () {
     echo -e "\nEstado actual: \e[30;48;5;9m$1\e[0m"
@@ -26,6 +26,7 @@ function showMenuStopped () {
     
 }
 
+# Funcion menu para cuando el servicio apache esta ejecutandose
 function showMenuRunning () {
 
     echo -e "Hint: Opciones validas {Reboot | Stop | Reload | Exit}"

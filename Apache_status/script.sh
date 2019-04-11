@@ -3,7 +3,7 @@
 #Importamos el archivo .sh de las funciones
 source ./Apache_status/functions.sh
 flag=true
-# Condicion de si el servicio existe en el sistema
+
 while [ "$flag" = "true" ]; do
     # Muestra el estado del servicio
     status="systemctl status apache2"

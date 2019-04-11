@@ -3,6 +3,7 @@
 mods_enabled=`ls $ruta/mods-enabled/|grep ".load"|cut -d "." -f1`
 mods_available=`ls $ruta/mods-available/|grep ".load"|cut -d "." -f1`
 
+# funcion para activar los modulos de apache
 function activate_MOD () {
     local mod
     read -p "Que mod quieres activar? " mod
@@ -23,6 +24,7 @@ function activate_MOD () {
     fi
 }
 
+# funcion para desactivar los modulos de apache
 function deactivate_MOD () {
     local mod
     read -p "Que mod quieres desactivar? " mod
@@ -39,6 +41,7 @@ function deactivate_MOD () {
     fi
 }
 
+# funcion para listar los modulos de apache
 function list_mods () {
     local i=0
     for file in $mods_available; do

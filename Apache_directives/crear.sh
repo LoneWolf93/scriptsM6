@@ -73,6 +73,7 @@ function set_parameters () {
     #echo -e "$foo" >> "$name_site.conf"
 }
 
+# funcion para borrar el sitio
 function delete_site () {
     local file_exists=false
     
@@ -93,6 +94,7 @@ function delete_site () {
     echo "Site eliminado correctamente! $(date +%d/%m/%Y %H:%M:%S)"
 }
 
+# funcion para listar los sitios
 function list_site () {
     sudo ls -l $ruta/sites-available/
 }

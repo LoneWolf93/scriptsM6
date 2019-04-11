@@ -59,7 +59,7 @@ function menu_sites () {
     esac
 }
 
-
+# Funcion para habilitar el sitio
 function enable_site () {
     local site_to_enable
     local file_exists=false
@@ -79,6 +79,7 @@ function enable_site () {
     fi
 }
 
+# funcion para deshabilitar el sitio
 function disable_site () {
     local site_to_disable
     local file_exists=false
@@ -100,7 +101,7 @@ function disable_site () {
 
 
 flag_sites=true
-
+# bucle que recorre el menu de los sitios
 while [ "$flag_sites" = "true" ]; do
     menu_sites
 done

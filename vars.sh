@@ -5,6 +5,7 @@ export ruta="/etc/apache2"
 export err_color="\e[31m"
 export white="\e[39m"
 
+# Menu para cambiar las variables export
 function menu_configuration () {
     
     flag_configuration=true
