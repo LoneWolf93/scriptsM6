@@ -1,0 +1,2 @@
+Se registró un incidente a las 12:01:35 del dia 28-04-2019 Incidente en el estado del servicio. Estado --> inactive
+[Sun Apr 28 11:50:28.664063 2019] [php7:error] [pid 4764] [client ::1:41140] PHP Fatal error:  Uncaught Error: Call to undefined function nose() in /var/www/html/index.php:3\nStack trace:\n#0 {main}\n  thrown in /var/www/html/index.php on line 3
