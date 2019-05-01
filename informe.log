@@ -1,0 +1,3 @@
+[Wed May 01 14:58:55.591840 2019] [php7:error] [pid 1484] [client ::1:49512] PHP Fatal error:  Uncaught Error: Call to undefined function nose() in /var/www/html/index.php:3\nStack trace:\n#0 {main}\n  thrown in /var/www/html/index.php on line 3
+Se registró un incidente a las 16:21:14 del dia 01-05-2019 Incidente en el estado del servicio. Estado --> inactive
+Se registró un incidente a las 16:28:27 del dia 01-05-2019 Incidente en el estado del servicio. Estado --> inactive
